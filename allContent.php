@@ -1,7 +1,7 @@
 <?php
     include "connect.php";
 
-    $query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity";
+    $query = "SELECT commodityID, categoryID, briefintro, description, price FROM commodity";
     $statement = $db->prepare($query);
     $statement->execute();
     $rowArray=$statement->fetchall();
@@ -24,8 +24,8 @@
 <?php foreach ($rowArray as $key => $value):?>
     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     <br>
-    briefintro:
-    <a href="itemDetail.php?comID=<?=$value['commodityID']?>"> <?=$value['briefintro']?></a>
+    <h4>Title: </h4>
+    <a href="itemDetail.php?comID=<?=$value['commodityID']?>"> <?=$value['briefintro']?></a>    CategoryID: <?=$value['categoryID']?>
     <br>
     <br>
 <?php endforeach;?>

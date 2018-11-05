@@ -3,7 +3,7 @@
 include "connect.php";
 
     //query the commodities in the commodity table.
-    $ID=$_GET['comID'];
+    $ID=filter_var($_GET['comID'],FILTER_SANITIZE_SPECIAL_CHARS);
     $query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity WHERE commodityID=$ID";
     $statement = $db->prepare($query);
     $statement->execute();
@@ -17,7 +17,7 @@ include "connect.php";
     $rowArrayImg=$statementImg->fetchall();
 
     //qery the comment table.
-    $querycomment = "SELECT writerName, commentText FROM comment WHERE commodityID= $ID";
+    $querycomment = "SELECT writerName, commentText FROM comment WHERE commodityID= $ID ORDER BY updateDate DESC";
     $statementComment = $db->prepare($querycomment);
     $statementComment->execute();
     $rowArrayComment=$statementComment->fetchall();
@@ -37,7 +37,7 @@ include "connect.php";
 </head>
 <body>
     
-briefintro:
+<h3>Title:</h3>
 <br>
 <?=$rowArray['briefintro']?>
 
@@ -49,22 +49,22 @@ briefintro:
 <br>
 <br>   
 
-Description:
+<h3>Description:</h3>
 <br>
 <?=$rowArray['description']?>
 <br>
 <br>
-CreateDate:
+<h3>CreateDate:</h3>
 <br>
 <?=$rowArray['createDate']?>
 <br>
 <br>
-UpdateDate:
+<h3>UpdateDate:</h3>
 <br>
 <?=$rowArray['updateDate']?>
 <br>
 <br>
-Price:
+<h3>Price:</h3>
 <br>
 <?=$rowArray['price']?>
 <br>
@@ -72,7 +72,7 @@ Price:
 
 <br>
 <br>
-Comment:
+<h3>Comment:</h3>
 <br>
 <br>
 <?php foreach ($rowArrayComment as $key => $value) :?>
@@ -80,5 +80,23 @@ Comment:
     <br>
     <br>
 <?php endforeach;?>
+<br>
+<br>
+<h4>Please leave your comment here:</h4>
+<br>
+<form action="createComment.php" name="comment" method="post" id="comment" >
+<textarea name="comment" id="comment" cols="50" rows="10" form="comment"></textarea>
+<input type="hidden" name="commID" value=<?=$ID?>>
+<br>
+<?php session_start();?>
+
+<?php if (!isset($_SESSION['loginUser'])):?>
+    <input type="text" name="writerName" form="comment" value="Enter your name here">
+<?php endif;?>
+
+<input type="submit" value="SUBMIT" form="comment">
+</form>
+
+
 </body>
 </html>
