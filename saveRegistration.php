@@ -5,11 +5,6 @@ include "connect.php";
 $userNmae=filter_input(INPUT_POST,'userName',FILTER_SANITIZE_EMAIL);
 $password1=filter_input(INPUT_POST,'password1',FILTER_SANITIZE_SPECIAL_CHARS);
 $password2=filter_input(INPUT_POST,'password2',FILTER_SANITIZE_SPECIAL_CHARS);
-print_r($userNmae);
-echo '<br>';
-print_r($password1);
-echo '<br>';
-print_r($password2);
 ?>
 
 <!DOCTYPE html>
@@ -47,13 +42,13 @@ $saved=$statement->execute();
     <?php $_SESSION['loginUser']=$userNmae;?>
 
     <script LANGUAGE = "javascript"> 
-    alert("You are succefully registered");
-    location.href="index.php";
+        alert("You are succefully registered");
+        location.href="index.php";
     </script>
 <?php else:?>
-<script LANGUAGE = "javascript"> 
-    alert("Registration is not successfull.");
-    location.href="register.php";
+    <script LANGUAGE = "javascript">    
+        alert("Registration is not successfull.");
+        location.href="register.php";
     </script>
 <?php endif;?>
 
