@@ -1,3 +1,5 @@
+// To display all the items we have already regardless the category.
+
 <?php
     include "connect.php";
 

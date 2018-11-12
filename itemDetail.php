@@ -17,7 +17,7 @@ include "connect.php";
     $rowArrayImg=$statementImg->fetchall();
 
     //qery the comment table.
-    $querycomment = "SELECT writerName, commentText FROM comment WHERE commodityID= $ID ORDER BY updateDate DESC";
+    $querycomment = "SELECT writerName, commentText, updateDate FROM comment WHERE commodityID= $ID ORDER BY updateDate DESC";
     $statementComment = $db->prepare($querycomment);
     $statementComment->execute();
     $rowArrayComment=$statementComment->fetchall();
@@ -76,6 +76,9 @@ include "connect.php";
 <br>
 <br>
 <?php foreach ($rowArrayComment as $key => $value) :?>
+    <?php if (!empty($value['writerName'])):?> 
+        <?=$value['writerName'].' said:  '?>
+    <?php endif;?>
     <?=$value['commentText']?>
     <br>
     <br>
@@ -91,9 +94,9 @@ include "connect.php";
 <?php session_start();?>
 
 <?php if (!isset($_SESSION['loginUser'])):?>
-    <input type="text" name="writerName" form="comment" value="Enter your name here">
+    <h4>Please Enter your Name Here  <input type="text" name="writerName" form="comment" value=""></h4>
 <?php endif;?>
-
+<br>
 <input type="submit" value="SUBMIT" form="comment">
 </form>
 

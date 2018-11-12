@@ -25,7 +25,7 @@
 
 <h2>Categories</h2>
 <br>
-<!-- to create a catalog of category -->
+<!-- to create a list of category -->
 <?php foreach ($rowArrayCategory as $key => $value):?>
     <a href="itemsInCategory.php?cateID=<?=$value['categoryID']?>&CateName=<?=$value['categoryName']?>"><?=$value['categoryName']?></a>
     <br>
