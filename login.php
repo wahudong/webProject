@@ -1,4 +1,4 @@
-<!-- let user login ans set the session variable. -->
+<!-- let user login and set the session variable to the userName. -->
 
 <?php 
 if (isset($_POST['submit'])){
@@ -37,6 +37,7 @@ if (isset($_POST['submit'])){
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />    
 </head>
 <body>
+<h2>Long In</h2>
     <form action="" method="post" name="loginForm" id="loginForm">
     <label for="userName">Please enter your user name</label>
     <input type="email" id=userName name="userName">

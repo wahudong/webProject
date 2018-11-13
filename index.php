@@ -23,8 +23,14 @@
 </head>
 <body>
 
+<h3><a href="login.php">login</a></h2>
+<h3><a href="register.php">Register</a></h2>
+<?php session_start();?>
+<?php if (isset($_SESSION['loginUser'])):?>
+    <h3><a href="logout.php">Logout</a></h3>
+<?php endif;?>
+
 <h2>Categories</h2>
-<br>
 <!-- to create a list of category -->
 <?php foreach ($rowArrayCategory as $key => $value):?>
     <a href="itemsInCategory.php?cateID=<?=$value['categoryID']?>&CateName=<?=$value['categoryName']?>"><?=$value['categoryName']?></a>

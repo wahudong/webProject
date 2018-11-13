@@ -10,11 +10,17 @@
 </head>
 <body>
 <?php session_start();?>
-<?php if (isset($_SESSION['loginUser'])):?>
-<h4>Welcom <?= $_SESSION['loginUser']?></h4>
-<h4><a href="logout.php">Log Out</a></h4>
-<br>
-<p>manage manual 功能列举清单</p>
+    <?php if (isset($_SESSION['loginUser'])):?>
+    <h4>Wellcom <?= $_SESSION['loginUser']?></h4>
+    <h4><a href="logout.php">Log Out</a></h4>
+    <h4><a href="index.php">Back to homepage</a></h4>
+    <br>
+    <p>Management manual 功能列举清单</p>
+    
+    <p><a href="userManage.php">User Management</a></p>
+    <p>Items's Page Management</p>
+    <p>Categary Management</p>
+
 <?php else:?>
 
 

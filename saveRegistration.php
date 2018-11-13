@@ -2,7 +2,7 @@
 
 <?php
 include "connect.php";
-$userNmae=filter_input(INPUT_POST,'userName',FILTER_SANITIZE_EMAIL);
+$userName=filter_input(INPUT_POST,'userName',FILTER_SANITIZE_EMAIL);
 $password1=filter_input(INPUT_POST,'password1',FILTER_SANITIZE_SPECIAL_CHARS);
 $password2=filter_input(INPUT_POST,'password2',FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
@@ -28,22 +28,32 @@ location.href="register.php";
 <?php endif;?>
 
 <?php
+$queryUser="SELECT userName FROM USER WHERE userName=:user";
+$statementUser=$db->prepare($queryUser);
+$statementUser->bindvalue(':user',$userName);
+$statementUser->execute();
+$users=$statementUser->fetchall();
+if (!empty($users)) {
+    echo "<script LANGUAGE = 'javascript'> alert('The user has been used, Please choose another one.');location.href='register.php'; </script>"; 
+    die();  
+}
+
 $hash=password_hash($password1,PASSWORD_DEFAULT);
 
 $query = "INSERT INTO USER (userName, password) VALUES (:userName, :password1)";
 $statement=$db->prepare($query);
-$statement->bindvalue(':userName',$userNmae);
+$statement->bindvalue(':userName',$userName);
 $statement->bindvalue(':password1',$hash);
 $saved=$statement->execute();
 ?>
 
 <?php if ($saved) :?>
     <?php session_start();?>
-    <?php $_SESSION['loginUser']=$userNmae;?>
+    <?php $_SESSION['loginUser']=$userName;?>
 
     <script LANGUAGE = "javascript"> 
         alert("You are succefully registered");
-        location.href="index.php";
+        location.href="manage.php";
     </script>
 <?php else:?>
     <script LANGUAGE = "javascript">    
