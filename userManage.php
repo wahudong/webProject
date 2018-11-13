@@ -1,3 +1,4 @@
+ <!--//This cold provide the user manage page  --> 
 <?php
 include "connect.php";
 $query="SELECT userName, userID FROM USER";
@@ -17,10 +18,10 @@ $users=$statement->fetchall();
     <link rel="stylesheet" type="text/css" media="screen" href="" />
     <script src=""></script>
 </head>
-<body>
+<body>   
     <h2>User Management</h3>
     <?php foreach ($users as $key => $userItem):?>
-        <?=$userItem['userName']?>  <a href="deleteUser.php?ID=<?=$userItem['userID']?>">Delete</a>
+        <?=$userItem['userName']?>  <a href="deleteUser.php?ID=<?=$userItem['userID']?>&name=<?=$userItem['userName']?>">Delete</a>
         <br>
     <?php endforeach;?>
     <br>
