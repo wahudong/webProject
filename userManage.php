@@ -1,5 +1,10 @@
  <!--//This cold provide the user manage page  --> 
 <?php
+session_start();
+if (!isset($_SESSION['loginUser'])) {
+    echo "<script LANGUAGE = 'javascript'> alert('Your can not access this page'); location.href='login.php' </script>";
+    die();
+}
 include "connect.php";
 $query="SELECT userName, userID FROM USER";
 $statement=$db->prepare($query);
