@@ -23,13 +23,15 @@ $users=$statement->fetchall();
     <link rel="stylesheet" type="text/css" media="screen" href="" />
     <script src=""></script>
 </head>
-<body>   
-    <h2>User Management</h3>
+<body>       
+    <h2>User Management</h2>
+    <h3><a href="manage.php">Back to manage page</a></h3>
+    
     <?php foreach ($users as $key => $userItem):?>
         <?=$userItem['userName']?>  <a href="deleteUser.php?ID=<?=$userItem['userID']?>&name=<?=$userItem['userName']?>">Delete</a>
         <br>
     <?php endforeach;?>
     <br>
-    <a href="addUser">Add New User</a>
+    <a href="addUser.php?">Add New User</a>
 </body>
 </html>
