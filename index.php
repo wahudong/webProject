@@ -1,5 +1,6 @@
 <?php
     include "connect.php";
+    session_start();
 
     $query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity";
     $statement = $db->prepare($query);
@@ -23,12 +24,14 @@
 </head>
 <body>
 
-<h3><a href="login.php">login</a></h2>
-<h3><a href="register.php">Register</a></h2>
-<?php session_start();?>
 <?php if (isset($_SESSION['loginUser'])):?>
     <h3><a href="logout.php">Logout</a></h3>
-<?php endif;?>
+    <h3><a href="manage.php">Go To Management Page</a></h3>
+<?php else:?>
+    <h3><a href="login.php">login</a></h2>
+    <h3><a href="register.php">Register</a></h2>
+<?php endif?>
+
 
 <h2>Categories</h2>
 <!-- to create a list of category -->

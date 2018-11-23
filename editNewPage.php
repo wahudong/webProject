@@ -1,10 +1,11 @@
-<?php   
-
+<?php 
 session_start();
-if(!isset($_SESSION['loginUser'])){
-    include "authenticate.php";
-    $_SESSION['loginUser']=1;
-}
+include "connect.php";
+
+$queryCategory = "SELECT categoryID, categoryName FROM category";
+    $statementCategory = $db->prepare($queryCategory);
+    $statementCategory->execute();
+    $rowArrayCategory=$statementCategory->fetchall();
 
 ?>
 
@@ -14,13 +15,25 @@ if(!isset($_SESSION['loginUser'])){
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Edit Bew Page</title>
+    <title>Edit new item page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
 </head>
 <body>
-    <form action="insertNewPage.php" method="post" name="editNewPage">
+<?php if (!isset($_SESSION['loginUser'])):?>
+  
+  <script LANGUAGE = "javascript"> 
+      alert("Sorry, You are not allow to access this page!");
+      location.href="login.php";
+  </script>
+<?php die();?>
+<?php endif;?>
+
+
+<p><a href="manage.php">Back to manage page</a></p>
+
+    <form action="insertNewPage.php" method="post" name="editNewPage" id="editNewPage">
     <label for="title">Please Enter The Title</label>
     <input type="text" name="title" id="title">
     <br>
@@ -34,8 +47,21 @@ if(!isset($_SESSION['loginUser'])){
     <input type="text" name="price" id="price">
     <br>
     <br>
-    <input type="submit" value="SUBMIT" form="editNewPage">
-    <input type="reset" value="reset" form="editNewPage">    
+    <select name="category">
+    <?php   foreach ($rowArrayCategory as $key => $value):?>
+        <option value="<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+        <br>;
+    <?php endforeach;?>
+
+    <!-- <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option> -->
+    </select>
+
+    <input type="submit" name="submit" value="SUBMIT" form="editNewPage">
+    <input type="reset" name="reset" value="reset" form="editNewPage">   
+
     </form>
 
 </body>

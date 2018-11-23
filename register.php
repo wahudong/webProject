@@ -1,4 +1,4 @@
-<!-- To display a registration form for a user to register, and gether the information about registration. -->
+<!-- To display a registration form for a user to register, and collect the information about registration. -->
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,14 @@
     <script src="main.js"></script>
 </head>
 <body>
+<?php if (!isset($_SESSION['loginUser'])):?>
+  
+  <script LANGUAGE = "javascript"> 
+      alert("Sorry, You are not allow to access this page!");
+      location.href="login.php";
+  </script>
+<?php die();?>
+<?php endif;?>
     <fieldset>
     <legend>Uer Registation</legend>
     <form action="saveRegistration.php" method="post" name="regForm" id="regForm">

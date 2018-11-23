@@ -10,7 +10,8 @@
 </head>
 <body>
 <?php session_start();?>
-    <?php if (isset($_SESSION['loginUser'])):?>
+<?php if (isset($_SESSION['loginUser'])):?>
+    <h2>Management Page</h2>
     <h4>Wellcom <?= $_SESSION['loginUser']?></h4>
     <h4><a href="logout.php">Log Out</a></h4>
     <h4><a href="index.php">Back to homepage</a></h4>
@@ -18,7 +19,7 @@
     <p>Management manual 功能列举清单</p>
     
     <p><a href="userManage.php">User Management</a></p>
-    <p>Items's Page Management</p>
+    <p><a href="itemPageManage.php">Items's Page Management</a></p>    
     <p>Categary Management</p>
 
 <?php else:?>
