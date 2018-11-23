@@ -1,6 +1,18 @@
+<!-- // to display the functions that related to item page manage -->
+
 <?php
 session_start();
 include "connect.php";
+
+$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity";
+$statement = $db->prepare($query);
+$statement->execute();
+$rowArray=$statement->fetchall();
+
+$queryCategory = "SELECT categoryID, categoryName FROM category";
+$statementCategory = $db->prepare($queryCategory);
+$statementCategory->execute();
+$rowArrayCategory=$statementCategory->fetchall();
 
 ?>
 
@@ -31,7 +43,52 @@ include "connect.php";
 
 <p><a href="manage.php">Back to manage page</a></p>
 
-<fieldset>
+<br>
+
+<h2>Commodities Display</h2>
+<br>
+<?php foreach ($rowArray as $key => $value):?>
+    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    <br>
+    Title: <?=$value['briefintro']?>     <a href="deleteItem.php?id=<?=$value['commodityID']?>">Delete</a>         <a href="editItem.php?id=<?=$value['commodityID']?>">Edit</a>
+    <br>
+    <br>
+    <?php
+        $cmdID=$value['commodityID'];
+        $queryImg = "SELECT imagePath FROM image WHERE commodityID=$cmdID";
+        $statementImg = $db->prepare($queryImg);
+        $statementImg->execute();
+        $rowArrayImg=$statementImg->fetchall();
+       
+    ?>
+    <br>
+    <br>
+    <?php foreach ($rowArrayImg as $keyImg => $valueImg) :?>     
+        <img src=<?=$valueImg['imagePath']?> alt="cooki1 picture">        
+    <?php endforeach;?>
+    <br>
+    <br>   
+
+    description:
+    <?=$value['description']?>
+    <br>
+    <br>
+    createDate:
+    <?=$value['createDate']?>
+    <br>
+    <br>
+    updateDate:
+    <?=$value['updateDate']?>
+    <br>
+    <br>
+    price:
+    <?=$value['price']?>
+    <br>
+    <br>
+<?php endforeach;?>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+<!-- <fieldset>
     <legend>  New Itmes </legend>
         <form action="insterNewItem.php" method="post" name=newItems>
         
@@ -46,7 +103,7 @@ include "connect.php";
         
         </form>
    
-</fieldset>
+</fieldset> -->
 
 
     

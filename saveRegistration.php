@@ -25,6 +25,7 @@ $password2=filter_input(INPUT_POST,'password2',FILTER_SANITIZE_SPECIAL_CHARS);
 alert("The two password do not match. Please reenter it.");
 location.href="register.php";
 </script>
+<?php exit;?>
 <?php endif;?>
 
 <?php

@@ -44,20 +44,20 @@ $queryCategory = "SELECT categoryID, categoryName FROM category";
     <br>
     <br>
     <label for="price">Please Enter The Price Here</label>
-    <input type="text" name="price" id="price">
+    <input type="number" name="price" id="price" step="any">
     <br>
     <br>
+    <label for="category">Please select category</label>
     <select name="category">
+
     <?php   foreach ($rowArrayCategory as $key => $value):?>
-        <option value="<?=$value['categoryID']?>><?=$value['categoryName']?></option>
-        <br>;
+        <option value=<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+        <br>
     <?php endforeach;?>
 
-    <!-- <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option> -->
     </select>
+    <br>
+    <br>
 
     <input type="submit" name="submit" value="SUBMIT" form="editNewPage">
     <input type="reset" name="reset" value="reset" form="editNewPage">   
