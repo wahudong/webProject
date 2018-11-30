@@ -4,7 +4,13 @@
 session_start();
 include "connect.php";
 
-$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity";
+if (isset($_POST['submit'])) {
+  $order=$_POST['sortBy'];
+}else{
+    $order="briefintro";
+}
+
+$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity ORDER BY ".$order;
 $statement = $db->prepare($query);
 $statement->execute();
 $rowArray=$statement->fetchall();
@@ -38,7 +44,6 @@ $rowArrayCategory=$statementCategory->fetchall();
 <?php die();?>
 <?php endif;?>
 
-
 <a href="editNewPage.php">Create Nem Item Page</a>
 
 <p><a href="manage.php">Back to manage page</a></p>
@@ -46,6 +51,18 @@ $rowArrayCategory=$statementCategory->fetchall();
 <br>
 
 <h2>Commodities Display</h2>
+<br>
+<form action="" method="post" name="sort">
+    <label for="sortBy"> Please choose sort type:</label>
+    <select name="sortBy" id="sortBy">       
+            <option value="briefintro">Title</option>
+            <option value="createDate">Create Date</option>
+            <option value="updateDate">Update Date</option>        
+    </select>
+
+    <input type="submit" name="submit">
+
+</form>
 <br>
 <?php foreach ($rowArray as $key => $value):?>
     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

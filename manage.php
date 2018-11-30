@@ -19,8 +19,8 @@
     <p>Management manual 功能列举清单</p>
     
     <p><a href="userManage.php">User Management</a></p>
-    <p><a href="itemPageManage.php">Items's Page Management</a></p>    
-    <p>Categary Management</p>
+    <p><a href="itemPageManage.php">Items's Page Management</a></p>  
+    <a href="categoryManage.php"> <p>Categary Management</p></a>
 
 <?php else:?>
 
