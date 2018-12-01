@@ -50,7 +50,7 @@ $rowArrayCategory=$statementCategory->fetchall();
 
 <br>
 
-<h2>Commodities Display</h2>
+<h2>Commodities Displayed By Order</h2>
 <br>
 <form action="" method="post" name="sort">
     <label for="sortBy"> Please choose sort type:</label>

@@ -16,6 +16,12 @@ $statement = $db->prepare($query);
 $statement->bindvalue(':commodityID',$commdID);
 $statement->execute();
 $item=$statement->fetch();
+
+$queryCurrentCategory = "SELECT categoryID, categoryName FROM category WHERE categoryID=".$item['categoryID'];
+$statementCurrentCategory = $db->prepare($queryCurrentCategory);
+$statementCurrentCategory->execute();
+$currentCategory=$statementCurrentCategory->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -43,35 +49,36 @@ $item=$statement->fetch();
 <p><a href="itemPageManage.php">Back to item manage page</a></p>
 
     <form action="updateItem.php" method="post" name="editPage" id="editPage">
-    <input type="hidden" name='commid' value= <?=$commdID?>>
+        <input type="hidden" name='commid' value= <?=$commdID?>>
 
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" value=<?=$item['briefintro'] ?>>
-    <br>
-    <br>
-    <label for="description">Description</label>
-    <br>
-    <textarea name="description" id="description" cols="50" rows="7" form="editPage"><?=$item['description']?></textarea>
-    <br>
-    <br>
-    <label for="price">Price:</label>
-    <input type="number" name="price" id="price" value=<?=$item['price']?> step="any">
-    <br>
-    <br>
-    <label for="category">Please select category</label>
-    <select name="category">
-
-    <?php   foreach ($rowArrayCategory as $key => $value):?>
-        <option value=<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value=<?=$item['briefintro'] ?>>
         <br>
-    <?php endforeach;?>
+        <br>
+        <label for="description">Description</label>
+        <br>
+        <textarea name="description" id="description" cols="50" rows="7" form="editPage"><?=$item['description']?></textarea>
+        <br>
+        <br>
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price" value=<?=$item['price']?> step="any">
+        <br>
+        <h4>Current category: <?=$currentCategory['categoryName']?></h4>
+        <br>
+        <label for="category">Please select new category</label>
+        <select name="category">
 
-    </select>
-    <br>
-    <br>
+        <?php   foreach ($rowArrayCategory as $key => $value):?>
+            <option value=<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+            <br>
+        <?php endforeach;?>
 
-    <input type="submit" name="submit" value="SUBMIT" form="editPage">
-    <input type="reset" name="reset" value="reset" form="editPage">   
+        </select>
+        <br>
+        <br>
+
+        <input type="submit" name="submit" value="SUBMIT" form="editPage">
+        <input type="reset" name="reset" value="reset" form="editPage">   
 
     </form>
 

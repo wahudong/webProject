@@ -4,9 +4,7 @@
         include "connect.php";
         
         $id=filter_input(INPUT_POST,'id',FILTER_SANITIZE_NUMBER_INT);
-        $name=filter_input(INPUT_POST,'newCateName', FILTER_SANITIZE_SPECIAL_CHARS);    
-
-       
+        $name=filter_input(INPUT_POST,'newCateName', FILTER_SANITIZE_SPECIAL_CHARS);   
 
         $qureyUpdate="UPDATE  Category SET CategoryNAME=:name WHERE CategoryID=:id";
         $statement=$db->prepare($qureyUpdate);

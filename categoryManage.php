@@ -29,11 +29,15 @@ $categories=$statement->fetchall();
     
     <form action="updateCategory.php" method="POST" name="displayCategory" id="displayCategory">
     <?php foreach ($categories as $key => $categoryItem):?>
-
-    <label>Category ID: <?=$categoryItem['categoryID']?></label>
     <input type="hidden" name="id" value=<?=$categoryItem['categoryID']?>>
 
-    <input type="text" name="cateName" value=<?=$categoryItem['categoryName']?>>
+    <label>Category ID: <?=$categoryItem['categoryID']?></label>
+    <br>
+    <h4>Category Name: </h4>
+    <?=$categoryItem['categoryName']?>|   
+  
+
+    <!-- <input type="text" name="cateName" value=<?=$categoryItem['categoryName']?>> -->
 
     <!-- // <input type="submit" name="delete" value="Delete"> -->
     <!-- // <input type="submit" name="update" value="Update"> -->
@@ -41,6 +45,8 @@ $categories=$statement->fetchall();
     
     <a href="deleteCategory.php?ID=<?=$categoryItem['categoryID']?>&name=<?=$categoryItem['categoryName']?>">Delete</a>
     <a href="updateCategory.php?ID=<?=$categoryItem['categoryID']?>">Update</a>
+    <br>
+    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     <br>      
     <br>

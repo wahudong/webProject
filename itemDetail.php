@@ -36,12 +36,10 @@ include "connect.php";
     <script src="main.js"></script>
 </head>
 <body>
-    
-<h3>Title:</h3>
-<br>
-<?=$rowArray['briefintro']?>
+<h2><a href="index.php">Back To Home Page</a></h2>
 
-<br>
+<h3>Title:<?=$rowArray['briefintro']?></h3>
+
 <br>
 <?php foreach ($rowArrayImg as $keyImg => $valueImg) :?>     
     <img src=<?=$valueImg['imagePath']?> alt="<?=$valueImg['briefintro']?> picture">        

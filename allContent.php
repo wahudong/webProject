@@ -1,4 +1,4 @@
-// To display all the items we have already regardless the category.
+<!-- // This page is to display all the items we have already regardless the category. -->
 
 <?php
     include "connect.php";
@@ -19,8 +19,9 @@
     <script src="main.js"></script>
 </head>
 <body>
+<p><a href="index.php">Back To Home Page</a></p>
 
-<h2>Commodities Display</h2>
+<h2>All the Commodities list</h2>
 
 <br>
 <?php foreach ($rowArray as $key => $value):?>
