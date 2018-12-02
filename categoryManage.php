@@ -33,8 +33,7 @@ $categories=$statement->fetchall();
 
     <label>Category ID: <?=$categoryItem['categoryID']?></label>
     <br>
-    <h4>Category Name: </h4>
-    <?=$categoryItem['categoryName']?>|   
+    <h4>Category Name: <?=$categoryItem['categoryName']?>|</h4>
   
 
     <!-- <input type="text" name="cateName" value=<?=$categoryItem['categoryName']?>> -->

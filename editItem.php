@@ -69,7 +69,11 @@ $currentCategory=$statementCurrentCategory->fetch();
         <select name="category">
 
         <?php   foreach ($rowArrayCategory as $key => $value):?>
-            <option value=<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+            <?php if ($value['categoryID']==$currentCategory['categoryID']):?>
+                <option value=<?=$value['categoryID']?> selected><?=$value['categoryName']?></option>
+            <?php else:?>
+                <option value=<?=$value['categoryID']?>><?=$value['categoryName']?></option>
+            <?php endif;?>
             <br>
         <?php endforeach;?>
 

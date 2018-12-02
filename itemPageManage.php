@@ -10,7 +10,12 @@ if (isset($_POST['submit'])) {
     $order="briefintro";
 }
 
-$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity ORDER BY ".$order;
+$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price, category.categoryName 
+FROM commodity
+LEFT JOIN category USING(categoryID)
+
+ORDER BY ".$order;
+
 $statement = $db->prepare($query);
 $statement->execute();
 $rowArray=$statement->fetchall();
@@ -84,7 +89,7 @@ $rowArrayCategory=$statementCategory->fetchall();
         <img src=<?=$valueImg['imagePath']?> alt="cooki1 picture">        
     <?php endforeach;?>
     <br>
-    <br>   
+    <!-- <br>    -->
 
     description:
     <?=$value['description']?>
@@ -93,14 +98,16 @@ $rowArrayCategory=$statementCategory->fetchall();
     createDate:
     <?=$value['createDate']?>
     <br>
-    <br>
+    <!-- <br> -->
     updateDate:
     <?=$value['updateDate']?>
     <br>
-    <br>
+    <!-- <br> -->
     price:
     <?=$value['price']?>
     <br>
+    Cagegory:
+    <?=$value['categoryName']?>
     <br>
 <?php endforeach;?>
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
