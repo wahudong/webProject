@@ -96,6 +96,15 @@ $rowArrayCategory=$statementCategory->fetchall();
     Title: <?=$value['briefintro']?>     <a href="deleteItem.php?id=<?=$value['commodityID']?>">Delete</a>         <a href="editItem.php?id=<?=$value['commodityID']?>">Edit</a>
     <br>
     <br>
+    <form action="upload-resize.php" method="POST" enctype="multipart/form-data">
+        <label for="file">Select the file want to be upload</label>
+        <input type="file" name="file" id="file">
+        <input type="hidden" name="itemID" value=<?=$value['commodityID']?>>
+        <input type="submit" name="submit" value="Up Load">
+    </form>
+
+    <br>
+
     <?php
         $cmdID=$value['commodityID'];
         $queryImg = "SELECT imagePath FROM image WHERE commodityID=$cmdID";

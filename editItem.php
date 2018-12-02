@@ -114,7 +114,7 @@ $currentCategory=$statementCurrentCategory->fetch();
 
         <?php if (empty($eachComment['commentText'])):?>
 
-         <a href="BackToPublic.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>&contentText=<?=$eachComment['commentText']?>">Back to Pubilc</a>
+         <a href="BackToPublic.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>&contentText=<?=$eachComment['commentText']?>">Show Comment</a>
 
         <?php endif;?>
         <br>
