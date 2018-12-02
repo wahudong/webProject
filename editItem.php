@@ -4,6 +4,7 @@
 session_start();
 include "connect.php";
 
+//select all the categorys for the select-optional element in the form
 $queryCategory = "SELECT categoryID, categoryName FROM category";
 $statementCategory = $db->prepare($queryCategory);
 $statementCategory->execute();
@@ -11,11 +12,21 @@ $rowArrayCategory=$statementCategory->fetchall();
 
 $commdID=filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT);
 
+//search item based on commodityID
 $query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price FROM commodity where commodityID=:commodityID";
 $statement = $db->prepare($query);
 $statement->bindvalue(':commodityID',$commdID);
 $statement->execute();
 $item=$statement->fetch();
+
+//search related comments
+$queryComment = "SELECT commentID, commodityID, writerName, commentText, updateDate FROM comment where commodityID=:commodityID2";
+$searchComment = $db->prepare($queryComment);
+$searchComment->bindvalue(':commodityID2',$commdID);
+$searchComment->execute();
+$commentArray=$searchComment->fetchall();
+
+// print_r($commentArray);
 
 $queryCurrentCategory = "SELECT categoryID, categoryName FROM category WHERE categoryID=".$item['categoryID'];
 $statementCurrentCategory = $db->prepare($queryCurrentCategory);
@@ -85,6 +96,27 @@ $currentCategory=$statementCurrentCategory->fetch();
         <input type="reset" name="reset" value="reset" form="editPage">   
 
     </form>
+
+    <br>
+
+     
+        <?php foreach ($commentArray as $key => $eachComment) :?>
+
+        ++++++++++++++++++++++++++++++++++++++++++++++++
+
+        <h3>Writer: <?=$eachComment['writerName']?></h3>
+        <textarea name="" id="" cols="50" rows="6"><?=$eachComment['commentText']?></textarea>
+        <br>
+
+        <a href="deleteComment.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>">Delete</a>
+        <a href="updateComment.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>">Edit</a>
+        <br>
+        <br>
+
+        <?php endforeach;?>
+    
+    
+    
 
 </body>
 </html>

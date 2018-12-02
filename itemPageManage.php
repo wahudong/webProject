@@ -10,10 +10,31 @@ if (isset($_POST['submit'])) {
     $order="briefintro";
 }
 
-$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price, category.categoryName 
-FROM commodity
-LEFT JOIN category USING(categoryID)
 
+// NO ERROR,JUST NOT GOOD
+// $query = "SELECT commodity.commodityID, category.categoryID, briefintro, description, createDate, commodity.updateDate, price, category.categoryName 
+// FROM commodity, category,comment
+// WHERE commodity.categoryID=category.categoryID
+// AND commodity.commodityID=comment.commodityID
+// ORDER BY ".$order;
+
+// NO ERROR,JUST NOT GOOD
+// SELECT commodityID, categoryID, briefintro, description, createDate, commodity.updateDate, price, category.categoryName 
+// FROM (commodity
+// LEFT JOIN category USING(categoryID))
+// LEFT JOIN comment USING(commodityID)
+
+
+// SELECT commodityID, categoryID, briefintro, description, createDate, commodity.updateDate, price, category.categoryName 
+// FROM (commodity 
+// LEFT OUTER JOIN category ON commodity.categoryID=category.categoryID
+// LEFT OUTER JOIN comment ON commodity.commodityID=comment.commodityID
+
+
+
+$query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price, category.categoryName 
+FROM (commodity
+LEFT JOIN category USING(categoryID))
 ORDER BY ".$order;
 
 $statement = $db->prepare($query);
@@ -112,22 +133,7 @@ $rowArrayCategory=$statementCategory->fetchall();
 <?php endforeach;?>
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-<!-- <fieldset>
-    <legend>  New Itmes </legend>
-        <form action="insterNewItem.php" method="post" name=newItems>
-        
-        <label for="title">Title</label>
-        <input type="text" name="title">
-        <br>
-        <label for="description">Detailed description</label>
-        <input type="text" name="description">
-        <br>
-        <label for="price">Price</label>
-        <input type="number" name="price">        
-        
-        </form>
-   
-</fieldset> -->
+
 
 
     

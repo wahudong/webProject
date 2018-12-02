@@ -8,10 +8,10 @@
         
         // $id=$_GET['id'];
         // print_r($_GET);
-        echo '<br>';
-        echo '$id= ';
-        print_r($id);
-        echo '<br>';
+        // echo '<br>';
+        // echo '$id= ';
+        // print_r($id);
+        // echo '<br>';
 
         $query="SELECT categoryID, categoryName FROM category WHERE categoryID=:id";
         $statement=$db->prepare($query);
@@ -19,7 +19,7 @@
         $statement->execute();
         $categorie=$statement->fetch();
 
-       print_r($categorie);
+    //    print_r($categorie);
   
 
         // $qureyUpdate="UPDATE  Category SET CategorynAME=:name WHERE CategoryID=:id";
