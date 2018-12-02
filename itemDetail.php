@@ -1,3 +1,5 @@
+<!-- This page is to display all the detail about the item, including pictures , comments. -->
+
 <?php
 // echo $_GET['comID'];
 include "connect.php";
@@ -16,12 +18,18 @@ include "connect.php";
     $statementImg->execute();
     $rowArrayImg=$statementImg->fetchall();
 
-    //qery the comment table.
+    //query the category table
+    $cateID=$rowArray['categoryID'];
+    $queryCate = "SELECT categoryName FROM category WHERE categoryID=$cateID";
+    $statementCate = $db->prepare($queryCate);
+    $statementCate->execute();
+    $cateRow=$statementCate->fetch();
+
+    //query the comment table.
     $querycomment = "SELECT writerName, commentText, updateDate FROM comment WHERE commodityID= $ID ORDER BY updateDate DESC";
     $statementComment = $db->prepare($querycomment);
     $statementComment->execute();
-    $rowArrayComment=$statementComment->fetchall();
-    
+    $rowArrayComment=$statementComment->fetchall();   
 
 ?>
 
@@ -39,6 +47,7 @@ include "connect.php";
 <h2><a href="index.php">Back To Home Page</a></h2>
 
 <h3>Title:<?=$rowArray['briefintro']?></h3>
+<h3>Category: <?=$cateRow['categoryName']?></h3>
 
 <br>
 <?php foreach ($rowArrayImg as $keyImg => $valueImg) :?>     
@@ -48,30 +57,16 @@ include "connect.php";
 <br>   
 
 <h3>Description:</h3>
-<br>
 <?=$rowArray['description']?>
 <br>
+<!-- <br> -->
+<h3>CreateDate: <?=$rowArray['createDate']?></h3>
 <br>
-<h3>CreateDate:</h3>
+<h3>UpdateDate: <?=$rowArray['updateDate']?></h3>
 <br>
-<?=$rowArray['createDate']?>
-<br>
-<br>
-<h3>UpdateDate:</h3>
-<br>
-<?=$rowArray['updateDate']?>
-<br>
-<br>
-<h3>Price:</h3>
-<br>
-<?=$rowArray['price']?>
-<br>
-<br>
-
-<br>
+<h3>Price: <?=$rowArray['price']?></h3>
 <br>
 <h3>Comment:</h3>
-<br>
 <br>
 <?php foreach ($rowArrayComment as $key => $value) :?>
     <?php if (!empty($value['writerName'])):?> 
@@ -86,7 +81,7 @@ include "connect.php";
 <h4>Please leave your comment here:</h4>
 <br>
 <form action="createComment.php" name="comment" method="post" id="comment" >
-<textarea name="comment" id="comment" cols="50" rows="10" form="comment"></textarea>
+<textarea name="comment" id="comment" cols="50" rows="4" form="comment"></textarea>
 <input type="hidden" name="commID" value=<?=$ID?>>
 <br>
 <?php session_start();?>

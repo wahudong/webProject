@@ -32,6 +32,13 @@
     <h3><a href="register.php">Register</a></h2>
 <?php endif?>
 
+<form action="searchAll.php" method="POST">
+    <label for="keyWord">Please enter the word you want to search</label>
+    <input type="text" name="keyWord">
+    <input type="submit" value="Search">
+
+</form>
+
 
 <h2>Categories</h2>
 <!-- to create a list of category -->

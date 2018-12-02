@@ -60,6 +60,7 @@ $rowArrayCategory=$statementCategory->fetchall();
     <script src=""></script>
 </head>
 <body>
+    <h2></h2>
 
 <?php if (!isset($_SESSION['loginUser'])):?>
   
