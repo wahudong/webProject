@@ -110,6 +110,13 @@ $currentCategory=$statementCurrentCategory->fetch();
 
         <a href="deleteComment.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>">Delete</a>
         <a href="updateComment.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>">Edit</a>
+        <a href="hideComment.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>&contentText=<?=$eachComment['commentText']?>">Hide</a>
+
+        <?php if (empty($eachComment['commentText'])):?>
+
+         <a href="BackToPublic.php?comID=<?=$eachComment['commentID']?>&itemID=<?=$item['commodityID']?>&contentText=<?=$eachComment['commentText']?>">Back to Pubilc</a>
+
+        <?php endif;?>
         <br>
         <br>
 

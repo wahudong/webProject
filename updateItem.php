@@ -26,6 +26,6 @@ $price=filter_input(INPUT_POST,'price',FILTER_SANITIZE_NUMBER_FLOAT);
 
 
   
-    header('Location: itemPageManage.php');
+    header('Location: editItem.php?id='.$id_current);
     die();
 ?>
