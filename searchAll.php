@@ -3,29 +3,57 @@
 session_start();
 include "connect.php";
 
-$searchWords=filter_input(INPUT_POST,'keyWord',FILTER_SANITIZE_SPECIAL_CHARS);
-$searchCategoryID=filter_input(INPUT_POST,'category',FILTER_SANITIZE_SPECIAL_CHARS);
-
-$itemQuery="SELECT * FROM COMMODITY";
-$statement=$db->prepare($itemQuery);
-$statement->execute();
-$itemRows=$statement->fetchall();
-
-
 $itemIDResults=[];
 $resultTitles=[];
 
-foreach ($itemRows as $key => $value) {
+if (isset($_GET['pageno'])) {
+    $pageno = $_GET['pageno'];
+    $itemIDResults=$_SESSION['resultIDs'];
+    $resultTitles=$_SESSION['resultTitles'];
+    $searchCategoryID=$_SESSION['searchCategoryID'];
+} else {
+    $pageno = 1;
 
-    if (stristr($value['briefintro'],$searchWords)) {
-        array_push($itemIDResults,$value['commodityID']);
-        array_push($resultTitles,$value['briefintro']);
-    }elseif(stristr($value['description'],$searchWords)){
-        array_push($itemIDResults,$value['commodityID']);
-        array_push($resultTitles,$value['briefintro']);
+
+    $searchWords=filter_input(INPUT_POST,'keyWord',FILTER_SANITIZE_SPECIAL_CHARS);
+    $searchCategoryID=filter_input(INPUT_POST,'category',FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $itemQuery="SELECT * FROM COMMODITY";
+    $statement=$db->prepare($itemQuery);
+    $statement->execute();
+    $itemRows=$statement->fetchall();
+
+    if ($searchCategoryID=='all') {
+          
+
+        foreach ($itemRows as $key => $value) {
+
+            if (stristr($value['briefintro'],$searchWords)) {
+                array_push($itemIDResults,$value['commodityID']);
+                array_push($resultTitles,$value['briefintro']);
+            }elseif(stristr($value['description'],$searchWords)){
+                array_push($itemIDResults,$value['commodityID']);
+                array_push($resultTitles,$value['briefintro']);
+            }
+        } 
+    
+    }else{
+
+        foreach ($itemRows as $key => $value) {
+
+            if (stristr($value['briefintro'],$searchWords) && ($value['categoryID']==$searchCategoryID)) {
+                array_push($itemIDResults,$value['commodityID']);
+                array_push($resultTitles,$value['briefintro']);
+            }elseif(stristr($value['description'],$searchWords) && ($value['categoryID']==$searchCategoryID)){
+                array_push($itemIDResults,$value['commodityID']);
+                array_push($resultTitles,$value['briefintro']);
+            }
+        } 
+
+
+
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -42,49 +70,69 @@ foreach ($itemRows as $key => $value) {
 <a href="index.php">Back To Home Page</a>
 <br>
 
-<h3>************Search Result For Key Words "<?=$searchWords?>"***************</h3>
+<h3>************Search Result For Key Words ***************</h3>
 
 
 <br>
 
 <?php
-$no_of_rows_per_page=3;
+$no_of_rows_per_page=5;
 $totalRows=count($resultTitles);
 $totalPage=ceil($totalRows/$no_of_rows_per_page);
 
-if (isset($_GET['pageno'])) {
-    $pageno = $_GET['pageno'];
-} else {
-    $pageno = 1;
-}
+
+// print_r($pageno);
+echo '<br> Total Rows To Display: ';
+print_r($totalRows);
 
 $offset = ($pageno-1) * $no_of_rows_per_page; 
 
 ?>
+<br>
+
+<?php for ($i=$offset; $i < ($offset+$no_of_rows_per_page)&&($i<$totalRows); $i=$i+1):?>
+
+  <br>
+    <a href="itemDetail.php?comID=<?=$itemIDResults[$i]?>"> <?=$resultTitles[$i]?></a>
+    <br>
+<?php endfor?>
 
 <br>
-<?php foreach ($itemRows as $key => $eachitem):?>
 
-    <?php if ($searchCategoryID=='all'):?>
+<?php
+$_SESSION['resultIDs']=$itemIDResults;
+$_SESSION['resultTitles']=$resultTitles;
+$_SESSION['searchCategoryID']=$searchCategoryID;
+?>
 
-        <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?>
+Page No: 
+<?php for ($j=1; $j <=$totalPage ; $j++):?>
+    <a href="searchAll.php?pageno=<?=$j?>"> <?=$j?> |</a> 
+<?php endfor?>
 
-            <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
-            <br>
-            <br>
-        <?php endif?>
-    <?php else:?> 
+
+
+<!-- //<?php foreach ($itemRows as $key => $eachitem):?> -->
+
+    <!-- //<?php if ($searchCategoryID=='all'):?> -->
+
+        <!--// <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?> -->
+
+            <!-- //<a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a>  -->
+            <!-- <br> -->
+            <!-- <br> -->
+        <!--// <?php endif?> -->
+    <!-- //<?php else:?>  -->
    
-        <?php if (in_array($eachitem['commodityID'],$itemIDResults) & $eachitem['categoryID']==$searchCategoryID) :?>
+        <!--// <?php if (in_array($eachitem['commodityID'],$itemIDResults) & $eachitem['categoryID']==$searchCategoryID) :?> -->
 
-        <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
-        <br>
-        <br>
-        <?php endif?>
-    <?php endif?>
-  
+        <!--// <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a>  -->
+        <!-- <br> -->
+        <!-- <br> -->
+        <!--// <?php endif?> -->
+    <!-- //<?php endif?>  -->
 
-<?php endforeach?>
+<!-- //<?php endforeach?> -->
     
 </body>
 </html>

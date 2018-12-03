@@ -35,7 +35,7 @@
 
 <form action="searchAll.php" method="POST">
     <label for="keyWord">Please enter the word you want to search</label>
-    <input type="text" name="keyWord"> 
+    <input type="text" name="keyWord" id="keyWord"> 
 
     <select name="category">
         <?php   foreach ($rowArrayCategory as $key => $value):?>     

@@ -56,8 +56,6 @@ $rowArrayCategory=$statementCategory->fetchall();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Item page manage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="" />
-    <script src=""></script>
 </head>
 <body>
     <h2></h2>
@@ -79,7 +77,7 @@ $rowArrayCategory=$statementCategory->fetchall();
 
 <h2>Commodities Displayed By Order</h2>
 <br>
-<form action="" method="post" name="sort">
+<form action="#" method="post" name="sort">
     <label for="sortBy"> Please choose sort type:</label>
     <select name="sortBy" id="sortBy">       
             <option value="briefintro">Title</option>
@@ -135,8 +133,8 @@ $rowArrayCategory=$statementCategory->fetchall();
     <br>
     <h3>Add new picture to the item</h3>
     <form action="upload-resize.php" method="POST" enctype="multipart/form-data">
-        <label for="file">Select the picture you want to be upload</label>
-        <input type="file" name="file" id="file">
+        <label >Select the picture you want to be upload</label>
+        <input type="file" name="file">
         <input type="hidden" name="itemID" value=<?=$value['commodityID']?>>
         <input type="submit" name="submit" value="Up Load">
     </form>

@@ -19,9 +19,7 @@ $categories=$statement->fetchall();
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>User Manage</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="" />
-    <script src=""></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 </head>
 <body>       
     <h2>Category Management</h2>
@@ -55,7 +53,7 @@ $categories=$statement->fetchall();
 
     <form action="insertCategory.php" name="createCategory" id="createCategory" method="POST">
 
-    <label for="newName">Please Enter New Category Name</label>
+    <label for="create">Please Enter New Category Name</label>
     <br>
     <input type="text" name="create" id="create">
     <input type="submit" name="createSubmit" value="Create Cagegory">

@@ -40,16 +40,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="" />
-    <script src=""></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
 </head>
 <body>
     <h3>Please Enter The New Name to The Category</h3>
 <form action="saveCategory.php" method="POST" name="updateCategory" id="updateCategory">
 <input type="hidden" name="id" value=<?=$id?>>
 <label for="newCateName">CategoryID: <?=$categorie['categoryID']?></label>
-<input type="text" name="newCateName" id="newCatName" value=<?=$categorie['categoryName']?>>
+<input type="text" name="newCateName" id="newCateName" value=<?=$categorie['categoryName']?>>
 <input type="submit" name="submitUpdate" value="Save">
 
 </form>
