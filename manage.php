@@ -1,4 +1,4 @@
-
+<!-- This page is a hub of maintance. all the maintance or registered user's previlige is go from here. -->
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,4 @@
+<!-- This code is going to display items in a specifican category -->
 <?php
 include "connect.php";
 //query the commodities in the commodity table.

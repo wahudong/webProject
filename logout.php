@@ -1,3 +1,4 @@
+<!-- this page is to clear all the sessions so that the useer is logouted . -->
 <?php
 session_start();
 session_destroy();

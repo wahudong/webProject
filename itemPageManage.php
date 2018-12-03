@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 $query = "SELECT commodityID, categoryID, briefintro, description, createDate, updateDate, price, category.categoryName 
 FROM (commodity
 LEFT JOIN category USING(categoryID))
-ORDER BY ".$order;
+ORDER BY ".$order." DESC";
 
 $statement = $db->prepare($query);
 $statement->execute();
