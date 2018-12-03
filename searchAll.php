@@ -36,9 +36,13 @@ foreach ($itemRows as $key => $value) {
     <script src=""></script>
 </head>
 <body>
+<a href="index.php">Back To Home Page</a>
+<br>
 
-<h3>************Search Result***************</h3>
+<h3>************Search Result For Key Words "<?=$searchWords?>"***************</h3>
 
+
+<br>
 <br>
 <?php foreach ($itemRows as $key => $eachitem):?>
 
