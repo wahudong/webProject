@@ -3,6 +3,13 @@
 session_start();
 include "connect.php";
 
+
+if (isset($_GET['pageno'])) {
+    $pageno = $_GET['pageno'];
+} else {
+    $pageno = 1;
+}
+
 $searchWords=filter_input(INPUT_POST,'keyWord',FILTER_SANITIZE_SPECIAL_CHARS);
 $searchCategoryID=filter_input(INPUT_POST,'category',FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -48,43 +55,58 @@ foreach ($itemRows as $key => $value) {
 <br>
 
 <?php
-$no_of_rows_per_page=3;
+$no_of_rows_per_page=20;
 $totalRows=count($resultTitles);
 $totalPage=ceil($totalRows/$no_of_rows_per_page);
 
-if (isset($_GET['pageno'])) {
-    $pageno = $_GET['pageno'];
-} else {
-    $pageno = 1;
-}
+
+// print_r($pageno);
+// echo '<br>';
 
 $offset = ($pageno-1) * $no_of_rows_per_page; 
 
+// print_r($offset);
+
 ?>
+<br>
+
+<?php for ($i=$offset; $i < ($offset+$no_of_rows_per_page)&&($i<$totalRows); $i++):?>
+  
+ <!-- //$i: <?=print_r($i)?> -->
+  <br>
+    <a href="itemDetail.php?comID=<?=$itemIDResults[$i]?>"> <?=$resultTitles[$i]?></a>
+    <br>
+<?php endfor?>
 
 <br>
-<?php foreach ($itemRows as $key => $eachitem):?>
+Page No: 
+<?php for ($i=1; $i <=$totalPage ; $i++):?>
+    <a href="searchAll.php?pageno=<?=$i?>"><?=$i?> |</a> 
+<?php endfor?>
 
-    <?php if ($searchCategoryID=='all'):?>
 
-        <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?>
 
-            <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
-            <br>
-            <br>
-        <?php endif?>
-    <?php else:?> 
+<!-- //<?php foreach ($itemRows as $key => $eachitem):?> -->
+
+    <!-- //<?php if ($searchCategoryID=='all'):?> -->
+
+        <!--// <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?> -->
+
+            <!-- //<a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a>  -->
+            <!-- <br> -->
+            <!-- <br> -->
+        <!--// <?php endif?> -->
+    <!-- //<?php else:?>  -->
    
-        <?php if (in_array($eachitem['commodityID'],$itemIDResults) & $eachitem['categoryID']==$searchCategoryID) :?>
+        <!--// <?php if (in_array($eachitem['commodityID'],$itemIDResults) & $eachitem['categoryID']==$searchCategoryID) :?> -->
 
-        <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
-        <br>
-        <br>
-        <?php endif?>
-    <?php endif?>
-  
+        <!--// <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a>  -->
+        <!-- <br> -->
+        <!-- <br> -->
+        <!--// <?php endif?> -->
+    <!-- //<?php endif?>  -->
 
-<?php endforeach?>
+<!-- //<?php endforeach?> -->
     
 </body>
 </html>
