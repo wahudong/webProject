@@ -1,3 +1,4 @@
+<!-- This is the website's first page.  it can briefly display item's information -->
 <?php
     include "connect.php";
     session_start();
@@ -63,8 +64,7 @@
 <?php foreach ($rowArray as $key => $value):?>
     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     <br>
-    briefintro:
-    <?=$value['briefintro']?>
+    <h3>Title: <?=$value['briefintro']?></h3>  
     <br>
     <br>
     <?php
@@ -78,12 +78,12 @@
     <br>
     <br>
     <?php foreach ($rowArrayImg as $keyImg => $valueImg) :?>     
-        <img src=<?=$valueImg['imagePath']?> alt="cooki1 picture">        
+        <img src=<?=$valueImg['imagePath']?> alt="picture">        
     <?php endforeach;?>
     <br>
     <br>   
-
-    description:
+     
+    <h3>Description:</h3>
     <?=$value['description']?>
     <br>
     <br>

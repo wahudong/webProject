@@ -53,7 +53,7 @@ $saved=$statement->execute();
     <?php $_SESSION['loginUser']=$userName;?>
 
     <script LANGUAGE = "javascript"> 
-        alert("You are succefully registered");
+        alert("Create user succefully");
         location.href="manage.php";
     </script>
 <?php else:?>

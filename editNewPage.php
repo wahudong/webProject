@@ -1,3 +1,4 @@
+<!-- Edit new page, -->
 <?php 
 session_start();
 include "connect.php";
@@ -58,10 +59,8 @@ $queryCategory = "SELECT categoryID, categoryName FROM category";
     </select>
     <br>
     <br>
-
     <input type="submit" name="submit" value="SUBMIT" form="editNewPage">
     <input type="reset" name="reset" value="reset" form="editNewPage">   
-
     </form>
 
 </body>

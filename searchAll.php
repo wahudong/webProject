@@ -4,6 +4,7 @@ session_start();
 include "connect.php";
 
 $searchWords=filter_input(INPUT_POST,'keyWord',FILTER_SANITIZE_SPECIAL_CHARS);
+$searchCategoryID=filter_input(INPUT_POST,'category',FILTER_SANITIZE_SPECIAL_CHARS);
 
 $itemQuery="SELECT * FROM COMMODITY";
 $statement=$db->prepare($itemQuery);
@@ -13,9 +14,8 @@ $itemRows=$statement->fetchall();
 
 $itemIDResults=[];
 
-
 foreach ($itemRows as $key => $value) {
-   
+
     if (stristr($value['briefintro'],$searchWords)) {
         array_push($itemIDResults,$value['commodityID']);
     }elseif(stristr($value['description'],$searchWords)){
@@ -46,16 +46,26 @@ foreach ($itemRows as $key => $value) {
 <br>
 <?php foreach ($itemRows as $key => $eachitem):?>
 
-   
-    <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?>
+    <?php if ($searchCategoryID=='all'):?>
 
-    <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a>    
-    <br>
-    <br>
-    <?php endif;?>
+        <?php if (in_array($eachitem['commodityID'],$itemIDResults)) :?>
+
+            <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
+            <br>
+            <br>
+        <?php endif?>
+    <?php else:?> 
+   
+        <?php if (in_array($eachitem['commodityID'],$itemIDResults) & $eachitem['categoryID']==$searchCategoryID) :?>
+
+        <a href="itemDetail.php?comID=<?=$eachitem['commodityID']?>"><?=$eachitem['briefintro']?></a> 
+        <br>
+        <br>
+        <?php endif?>
+    <?php endif?>
   
 
-<?php endforeach;?>
+<?php endforeach?>
     
 </body>
 </html>
